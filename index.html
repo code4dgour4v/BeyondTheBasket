@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#243b35">
+  <meta name="description" content="Analysis of customer purchasing behaviour using the UCI Online Retail dataset.">
+  <title>Beyond the Basket | MDS Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="#project" aria-label="Customer Behaviour home">
+    <span class="brand-mark">CB</span>
+    <span><strong>Beyond the Basket</strong><small>MDS PROJECT · IIT DHARWAD</small></span>
+  </a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Open navigation"><span></span><span></span></button>
+  <nav id="navigation" class="nav">
+    <a class="nav-link active" href="#project">Project</a>
+    <a class="nav-link" href="#results">Results</a>
+    <a class="nav-link" href="#team">Team</a>
+  </nav>
+</header>
+
+<main>
+  <section id="project" class="hero wrap">
+    <div class="hero-copy reveal">
+      <p class="eyebrow">MATHEMATICS FOR DATA SCIENCE</p>
+      <p class="kicker">A closer look at everyday retail</p>
+      <h1>What can transactions tell us about <em>customers?</em></h1>
+      <p class="lead">We studied the UCI Online Retail dataset to understand product performance, purchasing patterns across countries, monthly revenue, and the differences between customer groups.</p>
+      <div class="hero-links"><a class="button" href="#results">Explore the findings <span>↘</span></a><a class="under-link" href="#problem">Read the problem statement</a></div>
+      <div class="hero-note"><span class="dot"></span> Online Retail · December 2010–December 2011</div>
+    </div>
+    <aside class="hero-side reveal">
+      <span class="side-label">THE QUESTION</span>
+      <h2>How do customers buy, and how do their habits differ?</h2>
+      <p>We use exploratory analysis and RFM-based K-Means clustering to look for patterns in product sales, geography, time, and customer value.</p>
+      <div class="hero-rule"></div>
+      <div class="mini-stat"><strong>4,338</strong><span>customers included in segmentation</span></div>
+    </aside>
+  </section>
+
+  <section id="problem" class="section wrap">
+    <div class="section-head reveal"><div><p class="eyebrow">01 / PROJECT</p><h2>Project overview</h2></div><p class="section-intro">Retail transactions are more useful when viewed as patterns rather than isolated rows.</p></div>
+    <div class="overview-grid">
+      <article class="paper-card reveal">
+        <p class="card-label">PROBLEM STATEMENT</p>
+        <h3>Understand purchasing behaviour from transaction data.</h3>
+        <p>This project investigates how products perform, whether selected product quantities move together across invoices, how sales vary between countries and months, and whether customers can be grouped by their purchasing behaviour.</p>
+        <p>The aim is to turn a large collection of transactions into clear findings that can support better-informed retail decisions. Correlation is treated as association, not proof of cause.</p>
+      </article>
+      <article class="paper-card muted-card reveal">
+        <p class="card-label">WHAT WE LOOKED AT</p>
+        <ul class="plain-list">
+          <li><span>01</span><div><strong>Product performance</strong><small>Quantity sold and revenue</small></div></li>
+          <li><span>02</span><div><strong>Product relationships</strong><small>Invoice-level Pearson correlation</small></div></li>
+          <li><span>03</span><div><strong>Sales patterns</strong><small>Country-wise and monthly trends</small></div></li>
+          <li><span>04</span><div><strong>Customer groups</strong><small>Recency, Frequency, Monetary (RFM)</small></div></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="dataset-band">
+    <div class="wrap dataset-grid reveal">
+      <div><p class="eyebrow light">DATASET AT A GLANCE</p><h2>A year of retail transactions</h2><p>Source: UCI Machine Learning Repository — Online Retail.</p></div>
+      <div class="dataset-number"><strong>541,909</strong><span>original transaction records</span></div>
+      <div class="dataset-number"><strong>524,878</strong><span>records after cleaning</span></div>
+      <div class="dataset-number"><strong>4,338</strong><span>unique customers used for segmentation</span></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="method">
+    <div class="section-head reveal"><div><p class="eyebrow">02 / APPROACH</p><h2>From raw data to useful patterns</h2></div><p class="section-intro"></p></div>
+    <div class="steps">
+      <article class="step reveal"><span>01</span><h3>Prepare</h3><p>Remove exact duplicates, rows without product descriptions, and records with non-positive quantities or prices.</p></article>
+      <article class="step reveal"><span>02</span><h3>Explore</h3><p>Compare product quantity and revenue, examine invoice-level correlation, and look at country and monthly patterns.</p></article>
+      <article class="step reveal"><span>03</span><h3>Segment</h3><p>Calculate RFM features for customers, apply log(1+x), standardize the features, and use K-Means.</p></article>
+      <article class="step reveal"><span>04</span><h3>Interpret</h3><p>Use the elbow method to choose four clusters and PCA to display the segments in two dimensions.</p></article>
+    </div>
+    <div class="note-box reveal"><strong>A note on cleaning</strong><p>Negative quantities can represent returns, refunds, cancellations, or transaction corrections. This analysis retains positive-value sales; the report notes that the original dataset was preserved and cleaning was performed on a working copy.</p></div>
+  </section>
+
+  <section class="results-section" id="results">
+    <div class="wrap">
+      <div class="section-head reveal"><div><p class="eyebrow">03 / RESULTS</p><h2>What stood out in the data</h2></div><p class="section-intro"></p></div>
+      <div class="results-list">
+        <article class="result-card reveal">
+          <div class="result-text"><p class="figure-label">FIGURE 01 · DATA PREPARATION</p><h3>Records removed during preprocessing</h3><p>The dataset was reduced from 541,909 original records to 524,878 cleaned records. The preprocessing chart belongs here. In the final version, add a brief explanation of the categories and counts shown in the original plot.</p></div>
+          <figure class="figure-frame"><img src="assets/figures/preprocessing.png" alt="Placeholder for Figure 1, records removed during data preprocessing"><figcaption>Figure 1. Records removed during data preprocessing.</figcaption></figure>
+        </article>
+
+        <!-- <article class="result-card reverse reveal">
+          <div class="result-text"><p class="figure-label">FIGURE 02 · PRODUCT PERFORMANCE</p><h3>Quantity sold is not the same as revenue</h3><p>The report compares the top products by quantity sold and by revenue. The leaders are not necessarily the same, so product performance should be assessed using both volume and monetary contribution.</p></div>
+          <figure class="figure-frame"><img src="assets/figures/figure-2-product-sales.svg" alt="Placeholder for Figure 2, product sales by quantity and revenue"><figcaption>Figure 2. Product-level sales: quantity sold and revenue.</figcaption></figure>
+        </article> -->
+        <!-- <article class="result-card reverse reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 02 · PRODUCT PERFORMANCE</p>
+    <h3>Quantity sold is not the same as revenue</h3>
+    <p>
+      The report compares the top products by quantity sold and by revenue.
+      The leading products can differ, so both measures are useful for
+      understanding product performance.
+    </p>
+  </div>
+
+  <div class="image-pair">
+    <figure>
+      <img src="assets/figures/product_quantity.png"
+           alt="Top products by quantity sold">
+      <figcaption>(a) Top products by quantity sold</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/figures/product_quantity.png"
+           alt="Top products by revenue">
+      <figcaption>(b) Top products by revenue</figcaption>
+    </figure>
+  </div>
+</article> -->
+
+<!-- FIGURE 2(a): Product quantity -->
+<article class="result-card reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 02(a) · PRODUCT PERFORMANCE</p>
+    <h3>Which products sell the most?</h3>
+    <p>
+      This chart ranks products by the total quantity sold.
+      It highlights the products that customers purchase most
+      frequently in terms of units, helping identify high-volume
+      products in the retail dataset.
+    </p>
+  </div>
+
+  <figure class="figure-frame">
+    <img
+      src="assets/figures/product_quantity.png"
+      alt="Top products ranked by quantity sold"
+    >
+    <figcaption>
+      Figure 2(a). Top products by quantity sold.
+    </figcaption>
+  </figure>
+</article>
+
+<!-- FIGURE 2(b): Product revenue -->
+<article class="result-card reverse reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 02(b) · PRODUCT REVENUE</p>
+    <h3>Which products generate the most revenue?</h3>
+    <p>
+      This chart ranks products by their total revenue contribution.
+      Comparing revenue with quantity sold helps reveal that the
+      most frequently purchased products are not necessarily the
+      products generating the highest sales value.
+    </p>
+  </div>
+
+  <figure class="figure-frame">
+    <img
+      src="assets/figures/product_revenue.png"
+      alt="Top products ranked by revenue"
+    >
+    <figcaption>
+      Figure 2(b). Top products by revenue.
+    </figcaption>
+  </figure>
+</article>
+
+
+        <article class="result-card reveal">
+          <div class="result-text"><p class="figure-label">FIGURE 03 · PRODUCT RELATIONSHIPS</p><h3>Two products with a positive relationship</h3><p>For JUMBO BAG RED RETROSPOT and JUMBO BAG STRAWBERRY, the reported Pearson correlation is approximately 0.684. Invoices with higher quantities of one tend to have higher quantities of the other. This is an association, not evidence that one product causes the other to be purchased.</p></div>
+          <figure class="figure-frame"><img src="assets/figures/product_correlation.png" alt="Placeholder for Figure 3, invoice-level product correlation scatter plot"><figcaption>Figure 3. Invoice-level sales correlation for two products.</figcaption></figure>
+        </article>
+
+        <!-- <article class="result-card reverse reveal">
+          <div class="result-text"><p class="figure-label">FIGURE 04 · GEOGRAPHIC PATTERNS</p><h3>Sales and product preferences vary by country</h3><p>The United Kingdom accounts for the largest number of units sold by a substantial margin. The report also compares leading products across selected countries; RABBIT NIGHT LIGHT is the leading product in several of them. The UK is excluded from the international comparison to make other countries easier to compare.</p><p class="image-hint">Image file: <code>assets/figures/figure-4-country-sales.png</code></p></div>
+          <figure class="figure-frame"><img src="assets/figures/figure-4-country-sales.svg" alt="Placeholder for Figure 4, country-wise sales and leading products by country"><figcaption>Figure 4. Country-wise units sold and most-sold products.</figcaption></figure>
+        </article> -->
+
+<!-- FIGURE 4(a): Country-wise units sold -->
+<article class="result-card reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 04(a) · GEOGRAPHIC PATTERNS</p>
+    <h3>Which countries account for the most sales?</h3>
+    <p>
+      The United Kingdom accounts for the largest number of units
+      sold by a substantial margin. Comparing countries helps show
+      how retail demand is distributed across different markets.
+    </p>
+  </div>
+
+  <figure class="figure-frame">
+    <img
+      src="assets/figures/country_sales.png"
+      alt="Country-wise units sold"
+    >
+    <figcaption>
+      Figure 4(a). Units sold by country.
+    </figcaption>
+  </figure>
+</article>
+
+<!-- FIGURE 4(b): Leading products by country -->
+<article class="result-card reverse reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 04(b) · PRODUCT PREFERENCES</p>
+    <h3>Which products lead in international markets?</h3>
+    <p>
+      The report compares the leading products across selected
+      countries. RABBIT NIGHT LIGHT is the leading product in
+      several international markets. The UK is excluded from this
+      comparison to make other countries easier to compare.
+    </p>
+  </div>
+
+  <figure class="figure-frame">
+    <img
+      src="assets/figures/country_products.png"
+      alt="Leading products in selected countries"
+    >
+    <figcaption>
+      Figure 4(b). Leading products in selected countries.
+    </figcaption>
+  </figure>
+</article>
+
+
+<!-- <article class="result-card reverse reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 04 · GEOGRAPHIC PATTERNS</p>
+    <h3>Sales and product preferences vary by country</h3>
+    <p>
+      The United Kingdom accounts for the largest number of units sold.
+      The report also compares leading products across selected countries;
+      RABBIT NIGHT LIGHT leads in several international markets. The UK is
+      excluded from the international comparison to make other countries
+      easier to compare.
+    </p>
+  </div>
+
+  <div class="image-pair">
+    <figure>
+      <img
+        src="assets/figures/country_sales.png"
+        alt="Country-wise units sold"
+      >
+      <figcaption>(a) Units sold by country</figcaption>
+    </figure>
+
+    <figure>
+      <img
+        src="assets/figures/country_products.png"
+        alt="Leading products in selected countries"
+      >
+      <figcaption>(b) Leading products by country</figcaption>
+    </figure>
+  </div>
+</article> -->
+
+
+        <article class="result-card reveal">
+          <div class="result-text"><p class="figure-label">FIGURE 05 · TIME SERIES</p><h3>Revenue rose towards the end of 2011</h3><p>Monthly revenue increased substantially in the latter part of 2011 and reached its highest observed level in November. December's apparent decline should be treated cautiously because the dataset contains only part of that month.</p></div>
+          <figure class="figure-frame"><img src="assets/figures/monthly_revenue.png" alt="Placeholder for Figure 5, monthly revenue trend"><figcaption>Figure 5. Monthly revenue during the observed period.</figcaption></figure>
+        </article>
+
+        <!-- <article class="result-card reverse reveal">
+          <div class="result-text"><p class="figure-label">FIGURE 06 · CUSTOMER SEGMENTATION</p><h3>Four customer groups emerge from RFM</h3><p>K-Means was applied to standardized RFM features. The elbow method supported selecting four clusters, while PCA was used only to visualize them. The first two principal components explain approximately 93.86% of the variance in the standardized RFM data.</p><p class="image-hint">Image file: <code>assets/figures/figure-6-customer-segmentation.png</code></p></div>
+          <figure class="figure-frame"><img src="assets/figures/figure-6-customer-segmentation.svg" alt="Placeholder for Figure 6, elbow method and PCA customer clusters"><figcaption>Figure 6. Elbow method and PCA projection of the four customer segments.</figcaption></figure>
+        </article> -->
+        
+<!-- FIGURE 6(a): Elbow method -->
+<article class="result-card reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 06(a) · CLUSTER SELECTION</p>
+    <h3>Choosing the number of customer segments</h3>
+    <p>
+      The elbow method is used to examine how the within-cluster
+      sum of squares changes as the number of clusters increases.
+      The analysis supports using four clusters for customer
+      segmentation.
+    </p>
+  </div>
+
+  <figure class="figure-frame">
+    <img
+      src="assets/figures/elbow.png"
+      alt="Elbow method for selecting the number of customer clusters"
+    >
+    <figcaption>
+      Figure 6(a). Elbow method for selecting the number of clusters.
+    </figcaption>
+  </figure>
+</article>
+
+<!-- FIGURE 6(b): PCA projection -->
+<article class="result-card reverse reveal">
+  <div class="result-text">
+    <p class="figure-label">FIGURE 06(b) · CUSTOMER SEGMENTATION</p>
+    <h3>Visualising the four customer segments</h3>
+    <p>
+      Principal Component Analysis (PCA) projects the standardised
+      RFM customer data into two dimensions. The first two principal
+      components explain approximately 93.86% of the variance,
+      allowing the four K-Means clusters to be visualised.
+    </p>
+  </div>
+
+  <figure class="figure-frame">
+    <img
+      src="assets/figures/customer_pca.png"
+      alt="PCA projection showing four K-Means customer clusters"
+    >
+    <figcaption>
+      Figure 6(b). Customer segments visualised using PCA.
+    </figcaption>
+  </figure>
+</article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="segments">
+    <div class="section-head reveal"><div><p class="eyebrow">04 / CUSTOMER SEGMENTS</p><h2>Four different customer profiles</h2></div><p class="section-intro"></p></div>
+    <div class="segment-cards">
+      <article class="segment-card featured reveal"><p class="segment-tag">01 · HIGH-VALUE FREQUENT</p><strong class="segment-count">713</strong><span class="segment-caption">customers</span><p>Recent purchases, high purchase frequency, and substantially higher monetary value.</p><div class="segment-metrics"><span>Recency <b>12.17</b></span><span>Frequency <b>13.75</b></span><span>Monetary <b>8,088.02</b></span></div><small>Possible action: focus on retention and relevant loyalty benefits.</small></article>
+      <article class="segment-card reveal"><p class="segment-tag">02 · INACTIVE LOW-VALUE</p><strong class="segment-count">1,622</strong><span class="segment-caption">customers · largest group</span><p>Long time since last purchase, low invoice frequency, and low monetary contribution.</p><div class="segment-metrics"><span>Recency <b>181.51</b></span><span>Frequency <b>1.32</b></span><span>Monetary <b>341.00</b></span></div><small>Possible action: test targeted win-back campaigns.</small></article>
+      <article class="segment-card reveal"><p class="segment-tag">03 · RECENT LOW-VALUE</p><strong class="segment-count">837</strong><span class="segment-caption">customers</span><p>Purchased relatively recently but have comparatively low frequency and spending.</p><div class="segment-metrics"><span>Recency <b>17.70</b></span><span>Frequency <b>2.19</b></span><span>Monetary <b>557.32</b></span></div><small>Possible action: encourage a relevant next purchase.</small></article>
+      <article class="segment-card reveal"><p class="segment-tag">04 · MODERATE-VALUE</p><strong class="segment-count">1,166</strong><span class="segment-caption">customers</span><p>An intermediate group in recency, purchase frequency, and monetary contribution.</p><div class="segment-metrics"><span>Recency <b>71.64</b></span><span>Frequency <b>4.08</b></span><span>Monetary <b>1,801.78</b></span></div><small>Possible action: encourage repeat purchases and continued engagement.</small></article>
+    </div>
+    <div class="table-wrap reveal">
+      <div class="table-title"><h3>Segment characteristics</h3><p>Values from Table I in the report</p></div>
+      <table>
+        <thead><tr><th>Segment</th><th>Customers</th><th>Recency (days)</th><th>Frequency</th><th>Monetary</th></tr></thead>
+        <tbody>
+          <tr><td>High-Value Frequent</td><td>713</td><td>12.17</td><td>13.75</td><td>8,088.02</td></tr>
+          <tr><td>Inactive Low-Value</td><td>1,622</td><td>181.51</td><td>1.32</td><td>341.00</td></tr>
+          <tr><td>Recent Low-Value</td><td>837</td><td>17.70</td><td>2.19</td><td>557.32</td></tr>
+          <tr><td>Moderate-Value</td><td>1,166</td><td>71.64</td><td>4.08</td><td>1,801.78</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small-note reveal">Business actions are suggestions based on the segment profiles; they were not separately tested in the report. Monetary values are shown in the dataset's currency units.</p>
+  </section>
+
+  <section class="section conclusion-band">
+    <div class="wrap conclusion-grid reveal"><div><p class="eyebrow light">TAKEAWAY</p><h2>One dataset, several views of customer behaviour.</h2></div><p>The analysis shows that product volume and revenue tell different stories, demand varies by country, monthly revenue changes over time, and customers differ in recency, frequency, and monetary contribution. RFM-based K-Means provides a practical way to summarize those differences.</p></div>
+  </section>
+
+  <section class="section wrap" id="team">
+    <div class="section-head reveal"><div><p class="eyebrow">05 / TEAM</p><h2>The people behind the project</h2></div><p class="section-intro"></p></div>
+    <div class="team-grid">
+      <article class="team-card reveal"><img src="assets/team/gourav.png" alt="Portrait of Gourav Sherikar" onerror="this.src='assets/team/photo-placeholder.svg'"><div><p class="team-role">TEAM LEAD</p><h3>Gourav Sherikar</h3><p>Mathematics and Computing · IIT Dharwad</p><p class="bio-edit">Designed Pipeline and architecture of this project and developed this website too.Interested in Computer Systems, Backend Development and Alogr</p></div></article>
+      <article class="team-card reveal"><img src="assets/team/prajwal1.jpeg" alt="Portrait of Prajwal B" onerror="this.src='assets/team/photo-placeholder.svg'"><div><p class="team-role">MEMBER</p><h3>Prajwal B</h3><p>Mathematics and Computing · IIT Dharwad</p><p class="bio-edit">Add a short bio and the parts of the analysis this member worked on.</p></div></article>
+      <article class="team-card reveal"><img src="assets/team/prayunj.jpeg" alt="Portrait of Prayunj V N" onerror="this.src='assets/team/photo-placeholder.svg'"><div><p class="team-role">MEMBER</p><h3>Prayunj V N</h3><p>Mathematics and Computing · IIT Dharwad</p><p class="bio-edit">Add a short bio and the parts of the analysis this member worked on.</p></div></article>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>Customer Behaviour · MDS Project</span><span>IIT Dharwad · Online Retail dataset</span><a href="#project">Back to top ↑</a></div></footer>
+</body>
+</html>
