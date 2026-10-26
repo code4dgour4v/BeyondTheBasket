@@ -46,3 +46,34 @@
     sections.forEach(section => sectionObserver.observe(section));
   }
 })();
+
+const themeToggle = document.getElementById("theme-toggle");
+
+// Restore the saved theme
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+}
+
+function updateThemeButton() {
+    const isDark = document.body.classList.contains("dark-mode");
+
+    themeToggle.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    themeToggle.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light mode" : "Switch to dark mode"
+    );
+}
+
+updateThemeButton();
+
+// Toggle between light and dark modes
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    const theme = document.body.classList.contains("dark-mode")
+        ? "dark"
+        : "light";
+
+    localStorage.setItem("theme", theme);
+    updateThemeButton();
+});
